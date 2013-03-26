@@ -22,7 +22,8 @@ sock.install(server, '/sock');
 
 server.on('listening', function () {
     var port = server.address().port;
-    if(opts.app !== false)
+    if (opts.app !== false) {
         spawn('google-chrome', [ '--app=http://localhost:' + port ]);
+    }
 });
 
