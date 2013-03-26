@@ -1,26 +1,25 @@
-var through = require('through');
-var hyperquest = require('hyperquest');
+#!/usr/bin/env node
 
-var href = process.argv[2];
+var shoe = require('shoe');
+var http = require('http');
+var shux = require('shux')();
+var spawn = require('child_process').spawn;
 
-var keyboard = through(function (buf) {
-    if (buf.length === 1 && buf[0] === 1) return state.meta = true;
-    
-    if (state.meta && buf[0] === 'd'.charCodeAt(0)) {
-        process.exit();
+var ecstatic = require('ecstatic')(__dirname + '/../static');
+var server = http.createServer(function (req, res) {
+    if (req.url === '/shell') {
+        req.pipe(shux.createShell()).pipe(res);
     }
-    else this.queue(buf);
-    state.meta = false;
+    else ecstatic(req, res)
 });
+server.listen(0, '127.0.0.1');
 
-var hq = hyperquest.post(href).on('end', process.exit);
-keyboard.pipe(hq).pipe(process.stdout);
+var sock = shoe(function (stream) {
+    stream.pipe(shux.createShell()).pipe(stream);
+});
+sock.install(server, '/sock');
 
-var state = { meta: false };
-process.stdin.setRawMode(true);
-process.stdin.pipe(keyboard);
-
-process.on('exit', function () {
-    process.stdin.setRawMode(false);
-    console.log('\n[exited]');
+server.on('listening', function () {
+    var port = server.address().port;
+    spawn('google-chrome', [ '--app=http://localhost:' + port ]);
 });
