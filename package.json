@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "browserify": "~2.8.0",
-    "through": "~2.2.8"
+    "through": "~2.2.7"
   },
   "scripts": {
     "prepublish": "browserify browser/main.js -o static/bundle.js"
