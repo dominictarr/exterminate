@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "bundle": "browserify browser.js -o static/bundle.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "app": "google-chrome --app=http://localhost:5000"
   }
 }

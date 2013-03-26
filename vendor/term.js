@@ -13,9 +13,12 @@ var normal = 0
 /**
  * Terminal
  */
+ 
+var EventEmitter = require('events').EventEmitter;
 
 module.exports = Terminal;
 function Terminal(cols, rows, handler) {
+  if (!(this instanceof Terminal)) return new Terminal(cols, rows, handler);
   EventEmitter.call(this);
 
   var options;
@@ -244,7 +247,7 @@ Terminal.prototype.open = function() {
 
   this.refresh(0, this.rows - 1);
 
-  Terminal.bindKeys();
+  //Terminal.bindKeys();
   this.focus();
 
   this.startBlink();
@@ -4071,7 +4074,6 @@ var setInterval = this.setInterval;
 
 Terminal.EventEmitter = EventEmitter;
 Terminal.isMac = isMac;
-Terminal.inherits = inherits;
 Terminal.on = on;
 Terminal.off = off;
 Terminal.cancel = cancel;
