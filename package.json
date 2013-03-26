@@ -1,13 +1,33 @@
 {
   "name": "exterminate",
   "version": "0.0.0",
+  "description": "",
   "browser": "browser.js",
   "bin": {
     "exterminate": "bin/cmd.js"
   },
+  "keywords": [
+    "terminal",
+    "shell",
+    "application",
+    "xterm"
+  ],
+  "dependencies": {
+    "shoe": "~0.0.10",
+    "shux": "~0.1.0",
+    "ecstatic": "~0.4.1"
+  },
+  "devDependencies": {
+    "browserify": "~2.8.0",
+    "through": "~2.2.8"
+  },
   "scripts": {
-    "bundle": "browserify browser/main.js -o static/bundle.js",
-    "start": "node server.js",
-    "app": "google-chrome --app=http://localhost:5000"
+    "prepublish": "browserify browser/main.js -o static/bundle.js"
+  },
+  "license": "MIT",
+  "author" : {
+      "name" : "James Halliday",
+      "email" : "mail@substack.net",
+      "url" : "http://substack.net"
   }
 }
